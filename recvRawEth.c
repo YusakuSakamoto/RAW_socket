@@ -16,6 +16,7 @@
 #include <sys/socket.h>
 #include <net/if.h>
 #include <netinet/ether.h>
+#include <unistd.h>
 
 #define DEST_MAC0	0x00
 #define DEST_MAC1	0x00
@@ -26,7 +27,7 @@
 
 #define ETHER_TYPE	0x0800
 
-#define DEFAULT_IF	"eth0"
+#define DEFAULT_IF	"eth1"
 #define BUF_SIZ		1024
 
 int main(int argc, char *argv[])

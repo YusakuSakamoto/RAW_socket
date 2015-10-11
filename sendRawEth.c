@@ -22,7 +22,7 @@
 #define MY_DEST_MAC4	0x00
 #define MY_DEST_MAC5	0x00
 
-#define DEFAULT_IF	"eth0"
+#define DEFAULT_IF	"eth1"
 #define BUF_SIZ		1024
 
 int main(int argc, char *argv[])
@@ -95,8 +95,15 @@ int main(int argc, char *argv[])
   socket_address.sll_addr[5] = MY_DEST_MAC5;
 
   /* Send packet */
-  if (sendto(sockfd, sendbuf, sizeof(sendbuf), 0, (struct sockaddr*)&socket_address, sizeof(struct sockaddr_ll)) < 0)
-    printf("Send failed\n");
+  float a = 0;
+  while(1){
+	if (sendto(sockfd, sendbuf, sizeof(sendbuf), 0, (struct sockaddr*)&socket_address, sizeof(struct sockaddr_ll)) < 0){
+	  printf("Send failed\n");
+	  return -1;
+	}
+	printf("%.lf\n",a);
+	a++;
+  }
 
   return 0;
 }
