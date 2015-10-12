@@ -26,4 +26,4 @@ $(OUT2):./bin/$(OUT2).o
 
 
 clean:
-	rm ./bin/* ./recvRawEth ./sendRawEth
+	@rm ./bin/* ./recvRawEth ./sendRawEth
