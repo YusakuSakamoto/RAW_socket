@@ -3,11 +3,11 @@
 ##構造体の解説
 1. struct ifreq  
 2. struct sockaddr  
-2. struct ether_header  
-3. struct iphdr  
-4. struct sockaddr_ll  
+3. struct ether\_header  
+4. struct iphdr  
+5. struct sockaddr\_ll  
 
-###ifreq
+##1.ifreq
 [MAN PAGE](http://linuxjm.osdn.jp/html/LDP_man-pages/man7/netdevice.7.html)  
 
 
@@ -39,7 +39,7 @@ SIOCGIFADDRは、ifr_addr を用いてデバイスのアドレスの設定/取�
 ####AF_INET
 AF_INETは、PF_INET(IPv4 インターネット・プロトコル)
 
-###sockaddr
+##2.sockaddr
 [筑波大学 システム情報工学研究科 解説ページ](http://www.coins.tsukuba.ac.jp/~syspro/2010/No6_files/sockaddr.html)
 
 | type         | element    |
@@ -47,10 +47,21 @@ AF_INETは、PF_INET(IPv4 インターネット・プロトコル)
 |unsigned short|sa_family   |
 |char          |sa_data[14] |
 
+##3.ether\_header
+| type         | element   | explain                |
+|--------      |--------   |--------                |
+|unsigned char |ether_shost|Source MAC address.     |
+|unsigned char |ether_dhost|Destination MAC address.|
+|unsigned short|sa_family  |Protocol type.          |
+
+##4.iphdr
+
+##5.sockaddr\_ll
+
+
 #参考
-[TCP/IPソケットプログラミング C言語編](http://www.amazon.co.jp/TCP-IP%E3%82%BD%E3%82%B1%E3%83%83%E3%83%88%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0-C%E8%A8%80%E8%AA%9E%E7%B7%A8-Michael-Donahoo/dp/4274065197)
-
-[socket() で使用するアドレス・ファミリー・プロトコル](https://publib.boulder.ibm.com/html/as400/v4r5/ic2962/info/RZAB6ADDFAM.HTM)
-
-[ファイヤープロジェクト](http://www.fireproject.jp/feature/c-language/socket/basic.html)
+[TCP/IPソケットプログラミング C言語編](http://www.amazon.co.jp/TCP-IP%E3%82%BD%E3%82%B1%E3%83%83%E3%83%88%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0-C%E8%A8%80%E8%AA%9E%E7%B7%A8-Michael-Donahoo/dp/4274065197)  
+[socket() で使用するアドレス・ファミリー・プロトコル](https://publib.boulder.ibm.com/html/as400/v4r5/ic2962/info/RZAB6ADDFAM.HTM)  
+[ファイヤープロジェクト](http://www.fireproject.jp/feature/c-language/socket/basic.html)  
+[IPヘッダを理解する](http://qiita.com/Ki4mTaria/items/188df29ca26dbdc7887c)  
 
