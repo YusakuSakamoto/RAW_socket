@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
 
  repeat:	printf("listener: Waiting to recvfrom...\n");
   numbytes = recvfrom(sockfd, buf, BUF_SIZ, 0, NULL, NULL);
-  printf("listener: got packet %lu bytes\n", numbytes);
+  printf("listener: got packet %u bytes\n", numbytes);
 
   /* Check the packet is for me */
   if (eh->ether_dhost[0] == DEST_MAC0 &&
