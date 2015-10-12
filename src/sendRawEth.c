@@ -73,6 +73,7 @@ int main(int argc, char *argv[])
   eh->ether_shost[3] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[3];
   eh->ether_shost[4] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[4];
   eh->ether_shost[5] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[5];
+  
   eh->ether_dhost[0] = MY_DEST_MAC0;
   eh->ether_dhost[1] = MY_DEST_MAC1;
   eh->ether_dhost[2] = MY_DEST_MAC2;
@@ -101,14 +102,14 @@ int main(int argc, char *argv[])
 
   //Send packet
   float a = 0;
-  while(1){
+  //while(1){
 	if (sendto(sockfd, sendbuf, sizeof(sendbuf), 0, (struct sockaddr*)&socket_address, sizeof(struct sockaddr_ll)) < 0){
 	  printf("Send failed\n");
 	  return -1;
 	}
 	printf("%.lf\n",a);
 	a++;
-  }
+	//}
 
   return 0;
 }
