@@ -14,6 +14,7 @@
 #include <sys/socket.h>
 #include <net/if.h>
 #include <netinet/ether.h>
+#include <iostream>
 
 #define MY_DEST_MAC0	0x00
 #define MY_DEST_MAC1	0x00
@@ -24,6 +25,8 @@
 
 #define DEFAULT_IF	"eth1"
 #define BUF_SIZ		1024
+
+using namespace std;
 
 int main(int argc, char *argv[])
 {
@@ -37,31 +40,33 @@ int main(int argc, char *argv[])
   struct sockaddr_ll socket_address;
   char ifName[IFNAMSIZ];
 
-  /* Get interface name */
+  //Get interface name
   if (argc > 1)
-    strcpy(ifName, argv[1]);
+	strcpy(ifName, argv[1]);
   else
-    strcpy(ifName, DEFAULT_IF);
+	strcpy(ifName, DEFAULT_IF);
 
-  /* Open RAW socket to send on */
+  // Open RAW socket to send on
   if ((sockfd = socket(AF_PACKET, SOCK_RAW, IPPROTO_RAW)) == -1) {
-    perror("socket");
+	perror("socket");
   }
 
-  /* Get the index of the interface to send on */
+  //Get the index of the interface to send on
   memset(&if_idx, 0, sizeof(struct ifreq));
   strncpy(if_idx.ifr_name, ifName, IFNAMSIZ-1);
   if (ioctl(sockfd, SIOCGIFINDEX, &if_idx) < 0)
     perror("SIOCGIFINDEX");
-  /* Get the MAC address of the interface to send on */
+
+  //Get the MAC address of the interface to send on 
   memset(&if_mac, 0, sizeof(struct ifreq));
   strncpy(if_mac.ifr_name, ifName, IFNAMSIZ-1);
   if (ioctl(sockfd, SIOCGIFHWADDR, &if_mac) < 0)
-    perror("SIOCGIFHWADDR");
+	perror("SIOCGIFHWADDR");
 
-  /* Construct the Ethernet header */
+  // Construct the Ethernet header  
   memset(sendbuf, 0, BUF_SIZ);
-  /* Ethernet header */
+
+  // Ethernet header
   eh->ether_shost[0] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[0];
   eh->ether_shost[1] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[1];
   eh->ether_shost[2] = ((uint8_t *)&if_mac.ifr_hwaddr.sa_data)[2];
@@ -74,7 +79,7 @@ int main(int argc, char *argv[])
   eh->ether_dhost[3] = MY_DEST_MAC3;
   eh->ether_dhost[4] = MY_DEST_MAC4;
   eh->ether_dhost[5] = MY_DEST_MAC5;
-  /* Ethertype field */
+  //Ethertype field
   eh->ether_type = htons(ETH_P_IP);
   tx_len += sizeof(struct ether_header);
 
@@ -94,7 +99,7 @@ int main(int argc, char *argv[])
   socket_address.sll_addr[4] = MY_DEST_MAC4;
   socket_address.sll_addr[5] = MY_DEST_MAC5;
 
-  /* Send packet */
+  //Send packet
   float a = 0;
   while(1){
 	if (sendto(sockfd, sendbuf, sizeof(sendbuf), 0, (struct sockaddr*)&socket_address, sizeof(struct sockaddr_ll)) < 0){
